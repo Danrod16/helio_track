@@ -4,4 +4,5 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :overview, presence: true
   validates :status, presence: true, inclusion: { in: %w(active completed pending) }
+  has_many :deliverables, dependent: :destroy
 end
