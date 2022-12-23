@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_131129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_clients_on_company_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.bigint "ticket_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_comments_on_ticket_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -112,6 +122,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
+  create_table "user_tasks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "step_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_user_tasks_on_step_id"
+    t.index ["user_id"], name: "index_user_tasks_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -127,6 +146,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
   end
 
   add_foreign_key "clients", "companies"
+  add_foreign_key "comments", "tickets"
+  add_foreign_key "comments", "users"
   add_foreign_key "deliverables", "projects"
   add_foreign_key "project_journeys", "journeys"
   add_foreign_key "project_journeys", "projects"
@@ -138,5 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
   add_foreign_key "tickets", "deliverables"
   add_foreign_key "tickets", "steps"
   add_foreign_key "tickets", "users"
+  add_foreign_key "user_tasks", "steps"
+  add_foreign_key "user_tasks", "users"
   add_foreign_key "users", "companies"
 end
