@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_124710) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_125011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_124710) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_journeys", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "journey_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journey_id"], name: "index_project_journeys_on_journey_id"
+    t.index ["project_id"], name: "index_project_journeys_on_project_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.text "overview"
@@ -80,6 +89,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_124710) do
 
   add_foreign_key "clients", "companies"
   add_foreign_key "deliverables", "projects"
+  add_foreign_key "project_journeys", "journeys"
+  add_foreign_key "project_journeys", "projects"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "companies"
   add_foreign_key "users", "companies"
