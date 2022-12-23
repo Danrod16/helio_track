@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_125400) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_130030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_125400) do
     t.index ["company_id"], name: "index_projects_on_company_id"
   end
 
+  create_table "step_templates", force: :cascade do |t|
+    t.bigint "step_id", null: false
+    t.bigint "template_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["step_id"], name: "index_step_templates_on_step_id"
+    t.index ["template_id"], name: "index_step_templates_on_template_id"
+  end
+
   create_table "steps", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -81,6 +90,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_125400) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["journey_id"], name: "index_steps_on_journey_id"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,6 +118,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_125400) do
   add_foreign_key "project_journeys", "projects"
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "companies"
+  add_foreign_key "step_templates", "steps"
+  add_foreign_key "step_templates", "templates"
   add_foreign_key "steps", "journeys"
   add_foreign_key "users", "companies"
 end
