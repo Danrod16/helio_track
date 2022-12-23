@@ -1,4 +1,19 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users
+      resources :clients
+      resources :companies
+      resources :deliverables
+      resources :journeys
+      resources :projects
+      resources :project_journeys
+      resources :steps
+      resources :step_templates
+      resources :templates
+      resources :tickets
+
+      root to: "users#index"
+    end
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
