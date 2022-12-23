@@ -1,0 +1,4 @@
+discovery_call: 
+  name: Discovery call
+  status: active
+  journey: set_up
