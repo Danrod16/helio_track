@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_130030) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_130527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -98,6 +98,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130030) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tickets", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "status", default: "pending"
+    t.bigint "step_id", null: false
+    t.bigint "deliverable_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deliverable_id"], name: "index_tickets_on_deliverable_id"
+    t.index ["step_id"], name: "index_tickets_on_step_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -121,5 +135,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_130030) do
   add_foreign_key "step_templates", "steps"
   add_foreign_key "step_templates", "templates"
   add_foreign_key "steps", "journeys"
+  add_foreign_key "tickets", "deliverables"
+  add_foreign_key "tickets", "steps"
+  add_foreign_key "tickets", "users"
   add_foreign_key "users", "companies"
 end
