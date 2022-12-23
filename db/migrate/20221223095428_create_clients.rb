@@ -5,7 +5,7 @@ class CreateClients < ActiveRecord::Migration[7.0]
       t.string :industry
       t.string :website
       t.string :target
-
+      t.references :company, null: false, foreign_key: true
       t.timestamps
     end
   end
