@@ -39,4 +39,9 @@ class CompanyTest < ActiveSupport::TestCase
     company = Company.new
     assert_not company.save, "Saved the company without a target"
   end
+
+  test "should have many users" do
+    company = Company.new
+    assert_respond_to company, :users
+  end 
 end

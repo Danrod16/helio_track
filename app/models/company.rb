@@ -4,4 +4,5 @@ class Company < ApplicationRecord
     validates :industry, presence: true, inclusion: { in: %w(Healthcare Technology Finance Retail Education Other) }
     validates :target, presence: true
     validates :website, format: { with: URL_REGEXP, message: 'You provided invalid URL' }
+    has_many :users, dependent: :destroy
 end
