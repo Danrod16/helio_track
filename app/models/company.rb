@@ -6,4 +6,5 @@ class Company < ApplicationRecord
     validates :website, format: { with: URL_REGEXP, message: 'You provided invalid URL' }
     has_many :users, dependent: :destroy
     has_many :clients, dependent: :destroy
+    has_many :projects, dependent: :destroy
 end
