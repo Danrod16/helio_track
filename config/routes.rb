@@ -14,8 +14,13 @@ Rails.application.routes.draw do
 
       root to: "users#index"
     end
-  devise_for :users
-  root to: "pages#home"
+
+  resources :projects
+    
+
+  devise_for :users do 
+    root to: "devise/sessions#new"
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
