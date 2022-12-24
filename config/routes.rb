@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
       root to: "users#index"
     end
+
+  resources :projects
+    
+
   devise_for :users do 
     root to: "devise/sessions#new"
   end
