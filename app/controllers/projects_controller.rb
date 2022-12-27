@@ -5,5 +5,6 @@ class ProjectsController < ApplicationController
 
     def show
         @project = Project.find(params[:id])
+        @steps = @project.journeys.extract_associated(:steps).flatten
     end
 end

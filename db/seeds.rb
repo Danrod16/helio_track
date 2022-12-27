@@ -39,6 +39,9 @@ puts "Destroying data"
     
     puts "Creating steps"
     step1 = Step.create!(name: "Step 1", status: "active", journey: journey1)
+    step2 = Step.create!(name: "Step 2", status: "active", journey: journey1)
+    step3 = Step.create!(name: "Step 3", status: "active", journey: journey1)
+    step4 = Step.create!(name: "Step 4", status: "active", journey: journey1)
     
     puts "Creating tickets"
     ticket1 = Ticket.create!(title: "Ticket 1", status: "active", deliverable: deliverable1, user: user1, step: step1)
