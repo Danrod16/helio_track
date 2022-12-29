@@ -14,13 +14,20 @@ Rails.application.routes.draw do
 
       root to: "users#index"
     end
-
-  resources :projects
-    
-
-  devise_for :users do 
-    root to: "devise/sessions#new"
+  
+  resources :projects, except: [:index] do
+    resources :project_journeys, only: [:create, :destroy]
   end
+
+  resources :journeys do
+    resources :steps, only: :show
+  end
+
+  resources :company do
+    root to: "projects#index"
+  end
+  
+  devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

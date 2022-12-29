@@ -19,4 +19,8 @@ class Project < ApplicationRecord
   def active?
     self.status == "active"
   end
+
+  def current_step
+    journeys.map { |journey| journey.steps.find_by(status: "active") }.first
+  end
 end

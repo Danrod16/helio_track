@@ -16,9 +16,7 @@
             </small>
         </p>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <a href="<%= project_path(project) %>" class="btn btn-primary">Show</a>
-            <a href="<%= edit_project_path(project) %>" class="btn btn-secondary">Edit</a>
-            <a href="<%= project_path(project) %>" data-method="delete" data-confirm="Are you sure?" class="btn btn-danger">Delete</a>
+            <%= link_to "Show", journey_step_path(project.current_step.journey, project.current_step), class: "btn btn-primary" %>
         </div>
         </div>
     </div>
